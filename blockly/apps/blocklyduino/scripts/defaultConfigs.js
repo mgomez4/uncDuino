@@ -5,7 +5,7 @@ Blockly.Arduino.Placas.duinobot23 = {
 };
 
 Blockly.Arduino.Placas.duinobot12 = {
-    correccionDireccionMotores: '',
+    correccionDireccionMotores: "motor1.setClockwise(false);\n ",
 };
 
 //Defaults

@@ -12,6 +12,7 @@
             <script type="text/javascript" src="FileSaver.min.js"></script>
             <script type="text/javascript" src="blockly_helper.js"></script>
             <script type="text/javascript" src="scripts/popup.js"></script>
+            <script type="text/javascript" src="scripts/defaultConfigs.js"></script>
             <script>
 
                     /**
@@ -174,15 +175,6 @@
                                    if(dest){
                                        load_by_url(dest);
                                    }
-                }
-
-                function guardarConfig(){
-                    if(!Blockly.Arduino.configuracion) Blockly.Arduino.configuracion = {};
-
-                    pines = ["pinIR", "pinUS", "pinLI", "pinLD"];
-                    for (var i = pines.length - 1; i >= 0; i--) {
-                        Blockly.Arduino.configuracion[pines[i]] = document.getElementById(pines[i]).value;
-                    };
                 }
             </script>
             <style>

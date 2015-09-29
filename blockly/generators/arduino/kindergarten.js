@@ -24,6 +24,8 @@
  * @author mgomez4@famaf.unc.edu.ar (Marcos J. Gomez)
  */
 
+ goog.require('Blockly.Arduino.Pitches');
+
  Blockly.Arduino.n6_move_foward = function() {
    //var dropdown_direction = this.getTitleValue('DIRECTION');
    var speed = 50;//Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || '127';
@@ -105,7 +107,7 @@
    var song = this.getFieldValue('SONG');
    var code = "";
 
-   Blockly.Arduino.definitions_['define_melody'] = '#include "pitches.h"\n';
+   Blockly.Arduino.definitions_['define_melody'] = Blockly.Arduino.Pitches;
 
    Blockly.Arduino.definitions_['define_melody_init_1'] = "int melody1[] = {NOTE_C4, NOTE_G3,NOTE_G3, NOTE_A3, NOTE_G3,0, NOTE_B3, NOTE_C4};\n" +
       "int noteDurations1[] = {4, 8, 8, 4,4,4,4,4 };\n";

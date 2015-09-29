@@ -1,5 +1,16 @@
+Blockly.Arduino.Placas = {};
+
+Blockly.Arduino.Placas.duinobot23 = {
+    correccionDireccionMotores: '',
+};
+
+Blockly.Arduino.Placas.duinobot12 = {
+    correccionDireccionMotores: '',
+};
+
+//Defaults
 Blockly.Arduino.configuracion = {
-    placa: "duinobot23",
+    placa: Blockly.Arduino.Placas.duinobot23,
     pinIR: "A0",
     pinUS: "A1",
     pinLI: "A2",
@@ -8,8 +19,9 @@ Blockly.Arduino.configuracion = {
 
 function guardarConfig(){
     pines = ["pinIR", "pinUS", "pinLI", "pinLD"];
-    for (var i = pines.length - 1; i >= 0; i--) {
-        Blockly.Arduino.configuracion[pines[i]] = document.getElementById(pines[i]).value;
-    };
+    pines.forEach(function(pin){
+        Blockly.Arduino.configuracion[pin] = document.getElementById(pin).value;
+    });
+    Blockly.Arduino.configuracion.placa = Blockly.Arduino.Placas[document.getElementById('placa').value];
 }
 

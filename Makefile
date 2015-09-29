@@ -1,27 +1,35 @@
 VERSION=0.0.1
 NOMBRE="UNC++Duino"
-PATHNW="/opt/node-webkit-v0.8.6-linux-x64"
-NWEBKIT=${PATHNW}"/nw"
+PATHNWLINUX="/opt/node-webkit-v0.8.6-linux-x64"
+PATHNWWINDOWS="/opt/nwjs-v0.12.3-win-ia32"
 
 compilar:
 	python buildUNCDuino.py
 	
 zipear:
 	mkdir -p compilados
+	rm -f compilados/${NOMBRE}.nw
 	cd src && zip -r ../compilados/${NOMBRE} *
 	mv compilados/${NOMBRE}.zip compilados/${NOMBRE}.nw
 
-nwLinux: zipear
+empaquetarLinux: zipear
 	rm -rf compilados/linux
 	mkdir -p compilados/linux
 	cp compilados/${NOMBRE}.nw compilados/linux
-	cp -r ${PATHNW}/* compilados/linux
+	cp -r ${PATHNWLINUX}/* compilados/linux
 	rm compilados/linux/credits.html
 #	cd compilados/linux && cat ${NWEBKIT} ../${NOMBRE}.nw > ${NOMBRE} # No lo puedo hacer andar
 	echo "nw ${NOMBRE}.nw" > compilados/linux/${NOMBRE}.sh # Esto esta porque no puedo hacer andar lo de arriba
 	chmod +x compilados/linux/${NOMBRE}.sh
 	
-	
+empaquetarWindows: zipear
+	rm -rf compilados/windows
+	mkdir -p compilados/windows
+	cp -r ${PATHNWWINDOWS}/* compilados/windows
+	rm compilados/windows/credits.html
+	cd compilados/windows && cat nw.exe ../${NOMBRE}.nw > ${NOMBRE}.exe
+	rm compilados/windows/nw.exe
+#	mv compilados/windows/${NOMBRE}.exe compilados/windows/nw.exe
 
 full: compilar zipear empaquetarLinux
 	

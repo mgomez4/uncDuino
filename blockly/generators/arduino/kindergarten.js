@@ -24,6 +24,8 @@
  * @author mgomez4@famaf.unc.edu.ar (Marcos J. Gomez)
  */
 
+ goog.require('Blockly.Arduino.Pitches');
+
  Blockly.Arduino.n6_move_foward = function() {
    //var dropdown_direction = this.getTitleValue('DIRECTION');
    var speed = 50;//Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || '127';
@@ -48,7 +50,7 @@
    return code;
  };
 
- Blockly.Arduino.n6_turn_left = function() {
+ Blockly.Arduino.n6_turn_right = function() {
    //var dropdown_direction = this.getTitleValue('DIRECTION');
    var speed = 50;//Blockly.Arduino.valueToCode(this, 'SPEED', Blockly.Arduino.ORDER_ATOMIC) || '127';
    var code = "";
@@ -57,7 +59,7 @@
    Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
    Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
 
-   Blockly.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
+   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
 
    Blockly.Arduino.definitions_['define_right'] = "void girar_derecha()\n"+
     "{\n"+
@@ -82,7 +84,7 @@
    Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
    Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
    Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-   Blockly.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
+   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
 
    Blockly.Arduino.definitions_['define_left'] = "void girar_izquierda()\n"+
       "{\n"+
@@ -105,7 +107,7 @@
    var song = this.getFieldValue('SONG');
    var code = "";
 
-   Blockly.Arduino.definitions_['define_melody'] = '#include "pitches.h"\n';
+   Blockly.Arduino.definitions_['define_melody'] = Blockly.Arduino.Pitches;
 
    Blockly.Arduino.definitions_['define_melody_init_1'] = "int melody1[] = {NOTE_C4, NOTE_G3,NOTE_G3, NOTE_A3, NOTE_G3,0, NOTE_B3, NOTE_C4};\n" +
       "int noteDurations1[] = {4, 8, 8, 4,4,4,4,4 };\n";

@@ -97,7 +97,7 @@
                     } else if (content.id == 'content_arduino') {
                         //content.innerHTML = Blockly.Arduino.workspaceToCode();
                         var arduinoTextarea = document.getElementById('content_arduino');
-                        arduinoTextarea.value = Blockly.Arduino.workspaceToCode();
+                        arduinoTextarea.value = Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace);
                         arduinoTextarea.focus();
                     }
                 }
@@ -175,6 +175,15 @@
                                    if(dest){
                                        load_by_url(dest);
                                    }
+                }
+
+                function enviarAlRobot(){
+                    var fs = require('fs');
+                    var path = require('path');
+                    var outputFilePath = path.resolve(path.dirname(process.execPath), 'programa.ino');
+                    console.log(outputFilePath);
+                    fs.writeFileSync(outputFilePath, Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace));
+                    window.alert("Archivo creado en" + outputFilePath);
                 }
             </script>
             <style>
@@ -328,7 +337,8 @@
                             <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</td>
                             <td class="tabmin">&nbsp;</td>
                             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
-                            <td class="tabmax">
+                            <td class="tabmax"> 
+                                <button onclick="enviarAlRobot()">Enviar Al Robot</button>
                                 <button onclick="discard()">Borrar todo</button>
                                 <button onclick="saveCode()">Descargar código Arduino</button>
                                 <button onclick="save()">Descargar Bloques</button>

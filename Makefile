@@ -1,6 +1,6 @@
 VERSION=0.0.1
 NOMBRE="UNC++Duino"
-PATHNWLINUX="/opt/node-webkit-v0.8.6-linux-x64"
+PATHNWLINUX="/opt/nwjs-v0.12.3-linux-x64"
 PATHNWWINDOWS="/opt/nwjs-v0.12.3-win-ia32"
 
 compilar:
@@ -19,7 +19,7 @@ empaquetarLinux: zipear
 	cp -r ${PATHNWLINUX}/* compilados/linux
 	rm compilados/linux/credits.html
 #	cd compilados/linux && cat ${NWEBKIT} ../${NOMBRE}.nw > ${NOMBRE} # No lo puedo hacer andar
-	echo "nw ${NOMBRE}.nw" > compilados/linux/${NOMBRE}.sh # Esto esta porque no puedo hacer andar lo de arriba
+	echo "./nw ${NOMBRE}.nw" > compilados/linux/${NOMBRE}.sh # Esto esta porque no puedo hacer andar lo de arriba
 	chmod +x compilados/linux/${NOMBRE}.sh
 	
 empaquetarWindows: zipear

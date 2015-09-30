@@ -64,6 +64,7 @@ Arduino.EnviadorWindows = function(){};
 
 Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
     corresponde: function(){
+        if(typeof require === 'undefined') return false;
         var os = require('os');
         return os.platform() === 'win32'; // && (process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432'));
 
@@ -81,7 +82,7 @@ if (Arduino.enviador){
     var path = require('path');
     Arduino.enviador.nombrePrograma = 'programa';
     Arduino.enviador.path = path.resolve(path.dirname(process.execPath),'arduino-1.6.5-r5','arduino_debug.exe');
-}
+};
 Arduino.placas.duinobot23 = new Arduino.Placa("DuinoBotv2x_1284_HID");
 Arduino.placas.duinobot12 = new Arduino.Placa("DuinoBotv1x_HID");
 Arduino.placas.duinobot12.correccionDireccionMotores = "motor1.setClockwise(false);\n ";

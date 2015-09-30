@@ -36,8 +36,9 @@ Arduino.EnviadorOS.prototype = {
     },
     enviar: function(){
         var exec = require('child_process').exec;
+        console.log("Comando corriendo:" + this.comando());
         exec(this.comando(), function(error, stdout, stderr) {
-            console.log("Salida del comando:\n" + stdout + "\nSalida de error:\n" + stderr);
+            console.log("Salida del comando:\n" + stdout + "\nSalida de error:\n" + stderr + "\nError completo:\n" + error);
             window.alert("Envío terminado");
         });
     },
@@ -68,7 +69,7 @@ Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
 
     },
     comando: function(){
-        return this.path + " -v --board multiplo:avr:" + Arduino.placaElegida.idHW + " --upload " + this.pathPrograma();
+        return this.path + " -v --port " + Arduino.puerto + " --board multiplo:avr:" + Arduino.placaElegida.idHW + " --upload " + this.pathPrograma() + " ";
     },
 });
 
@@ -77,13 +78,15 @@ Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
 Arduino.enviadores = [Arduino.EnviadorWindows];
 Arduino.elegirEnviador();
 if (Arduino.enviador){
+    var path = require('path');
     Arduino.enviador.nombrePrograma = 'programa';
-    Arduino.enviador.path = '\"C:\\Documents and Settings\\Alf\\Escritorio\\arduino-1.6.5-r5-windows\\arduino-1.6.5-r5\\arduino_debug.exe\"';
+    Arduino.enviador.path = path.resolve(path.dirname(process.execPath),'arduino-1.6.5-r5','arduino_debug.exe');
 }
 Arduino.placas.duinobot23 = new Arduino.Placa("DuinoBotv2x_1284_HID");
 Arduino.placas.duinobot12 = new Arduino.Placa("DuinoBotv1x_HID");
 Arduino.placas.duinobot12.correccionDireccionMotores = "motor1.setClockwise(false);\n ";
 Arduino.placaElegida = Arduino.placas.duinobot23;
+Arduino.puerto = "COM1";
 
 Blockly.Arduino.configuracion = {
     placa: Arduino.placaElegida,
@@ -99,6 +102,7 @@ function guardarConfig(){
         Blockly.Arduino.configuracion[pin] = document.getElementById(pin).value;
     });
     Blockly.Arduino.configuracion.placa = Arduino.placas[document.getElementById('placa').value];
+    Arduino.puerto = document.getElementById('puerto').value;
 }
 
 function enviarAlRobot(){

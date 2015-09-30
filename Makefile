@@ -29,6 +29,8 @@ empaquetarWindows: zipear
 	rm compilados/windows/credits.html
 	cd compilados/windows && cat nw.exe ../${NOMBRE}.nw > ${NOMBRE}.exe
 	rm compilados/windows/nw.exe
+	rm -rf ~/Descargas/UNCWindows
+	mv compilados/windows ~/Descargas/UNCWindows # Para test de Alf
 #	mv compilados/windows/${NOMBRE}.exe compilados/windows/nw.exe
 
 full: compilar zipear empaquetarLinux

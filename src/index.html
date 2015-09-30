@@ -12,7 +12,7 @@
             <script type="text/javascript" src="FileSaver.min.js"></script>
             <script type="text/javascript" src="blockly_helper.js"></script>
             <script type="text/javascript" src="scripts/popup.js"></script>
-            <script type="text/javascript" src="scripts/defaultConfigs.js"></script>
+            <script type="text/javascript" src="scripts/arduinoUpload.js"></script>
             <script>
 
                     /**
@@ -175,15 +175,6 @@
                                    if(dest){
                                        load_by_url(dest);
                                    }
-                }
-
-                function enviarAlRobot(){
-                    var fs = require('fs');
-                    var path = require('path');
-                    var outputFilePath = path.resolve(path.dirname(process.execPath), 'programa.ino');
-                    console.log(outputFilePath);
-                    fs.writeFileSync(outputFilePath, Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace));
-                    window.alert("Archivo creado en" + outputFilePath);
                 }
             </script>
             <style>

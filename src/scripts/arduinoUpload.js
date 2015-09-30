@@ -23,8 +23,16 @@ Arduino.EnviadorOS = function(){
 Arduino.EnviadorOS.prototype = {
     escribirProgramaADisco: function(){
         var fs = require('fs');
-        fs.writeFileSync(this.pathPrograma(), Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace));
-        console.log("Archivo creado en" + this.pathPrograma());
+        fs.mkdir(this.pathDirectorioPrograma(), 0777, function(err) {
+            if (err && err.code != 'EEXIST') {
+                throw "No se pudo crear la carpeta del programa"
+            } else {
+                fs.writeFileSync(this.pathPrograma(), Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace));
+                console.log("Archivo creado en" + this.pathPrograma());
+            }
+        }.bind(this));
+        
+        
     },
     enviar: function(){
         var exec = require('child_process').exec;
@@ -35,10 +43,15 @@ Arduino.EnviadorOS.prototype = {
     },
     pathPrograma: function(){
         var path = require('path');
-        return path.resolve(path.dirname(process.execPath), this.nombrePrograma + '.ino' );
+        return path.resolve(this.pathDirectorioPrograma(), this.nombrePrograma + '.ino' )
+    },
+    
+    pathDirectorioPrograma: function(){
+        var path = require('path');
+        return path.resolve(path.dirname(process.execPath), this.nombrePrograma );
     },
 
-    addPropsFrom: function(otherObj){
+    addPropsFrom: function(otherObj){ //FEEEOOOOO Esto es por la falta de herencia. TODO.
         for(attrname in otherObj){
             this[attrname] = otherObj[attrname];
         }

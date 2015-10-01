@@ -30,7 +30,7 @@ empaquetarWindows: zipear
 	cd compilados/windows && cat nw.exe ../${NOMBRE}.nw > ${NOMBRE}.exe
 	rm compilados/windows/nw.exe
 	# rm -rf ~/Descargas/UNCWindows
-	mv compilados/windows ~/Descargas/UNCWindows # Para test de Alf
+	cp -rf compilados/windows/* ~/Descargas/UNCWindows # Para test de Alf
 
 full: compilar zipear empaquetarLinux
 	

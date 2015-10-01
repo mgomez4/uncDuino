@@ -147,7 +147,7 @@
    var code = "";
    Blockly.Arduino.definitions_['define_ultrasonic_2'] = '#include <Ping.h>\n';
    // We define that ultrasonic sensor is connect to analogic pin S2 of N6 robotgroup
-   Blockly.Arduino.definitions_['var_ultrasonic_2'] = 'PingSensor ultrasonic(A2);\n';
+   Blockly.Arduino.definitions_['var_ultrasonic_2'] = 'PingSensor ultrasonic('+ Blockly.Arduino.configuracion.pinUS +');\n';
 
    if_code = "if(ultrasonic.measureCM() <= 18){\n "+statements_if+"}\n";
    else_code = "else{\n"+statements_else+"}";
@@ -164,3 +164,15 @@
 
    return code;
  }
+
+
+Blockly.Arduino.repeatForever = function() {
+  // Do while/until loop.
+  var until = false;
+  var branch = Blockly.Arduino.statementToCode(this, 'DO');
+  if (Blockly.Arduino.INFINITE_LOOP_TRAP) {
+    branch = Blockly.Arduino.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'' + this.id + '\'') + branch;
+  }
+  return 'while (true) {\n' + branch + '}\n';
+}

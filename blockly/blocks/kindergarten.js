@@ -102,3 +102,24 @@ Blockly.Blocks['run_button_push'] = {
     this.setTooltip('Si presionamos el botón');
   }
 };
+
+Blockly.Blocks['repeatForever'] = {
+  /**
+   * Block for 'do while/until' loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
+    this.setColour(Blockly.Blocks.loops.HUE);
+    this.appendStatementInput('DO')
+        .appendTitle(new Blockly.FieldImage("media/images/repetir.png", 64, 64))
+        //.appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip(function() {
+      return "Repetir siempre";
+    });
+  }
+};

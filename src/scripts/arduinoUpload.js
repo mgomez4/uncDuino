@@ -39,7 +39,7 @@ Arduino.EnviadorOS.prototype = {
         console.log("Comando corriendo:" + this.comando());
         exec(this.comando(), function(error, stdout, stderr) {
             console.log("Salida del comando:\n" + stdout + "\nSalida de error:\n" + stderr + "\nError completo:\n" + error);
-            window.alert("Envío terminado");
+            popup('popupEnviar');
         });
     },
     pathPrograma: function(){

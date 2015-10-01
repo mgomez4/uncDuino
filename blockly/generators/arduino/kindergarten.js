@@ -107,6 +107,8 @@
    var song = this.getFieldValue('SONG');
    var code = "";
 
+   Blockly.Arduino.setups_["setup_speaker"] = "pinMode(SPEAKER, OUTPUT);\n";
+
    Blockly.Arduino.definitions_['define_melody'] = Blockly.Arduino.Pitches;
 
    Blockly.Arduino.definitions_['define_melody_init_1'] = "int melody1[] = {NOTE_C4, NOTE_G3,NOTE_G3, NOTE_A3, NOTE_G3,0, NOTE_B3, NOTE_C4};\n" +
@@ -118,19 +120,19 @@
    if(song === "TAPA"){
      code = "for (int thisNote = 0; thisNote < 8; thisNote++) {\n" +
  	          "  int noteDuration = 1000/noteDurations1[thisNote];\n" +
-            "  tone(23, melody1[thisNote],noteDuration);\n" +
+            "  tone(SPEAKER, melody1[thisNote],noteDuration);\n" +
  		        "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
  		        "  delay(pauseBetweenNotes);\n" +
- 		        "  noTone(23);\n" + "}\n" +
+ 		        "  noTone(SPEAKER);\n" + "}\n" +
  		        "delay(5000);\n"
  		 }
     else if (song === "NAVIDAD"){
-      code = "for (int thisNote = 0; thisNote < 8; thisNote++) {\n" +
+      code = "for (int thisNote = 0; thisNote < 84; thisNote++) {\n" +
  	           "  int noteDuration = 1000/noteDurations2[thisNote];\n" +
-             "  tone(23, melody2[thisNote],noteDuration);\n" +
+             "  tone(SPEAKER, melody2[thisNote],noteDuration);\n" +
  		         "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
  		         "  delay(pauseBetweenNotes);\n" +
- 		         "  noTone(23);\n" + "}\n" +
+ 		         "  noTone(SPEAKER);\n" + "}\n" +
  		         "delay(5000);\n"
  		}
 

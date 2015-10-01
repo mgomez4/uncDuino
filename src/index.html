@@ -294,7 +294,7 @@
                width:100%;
             }
 
-            #popupConfig {
+            #popupConfig, #popupEnviar {
                 position:absolute;
                 background:lightgray;
                 width:400px;
@@ -329,7 +329,7 @@
                             <td class="tabmin">&nbsp;</td>
                             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
                             <td class="tabmax"> 
-                                <img src="media/images/enviar.png" onclick="enviarAlRobot()"/>
+                                <img src="media/images/enviar.png" onclick="popup('popupEnviar'); enviarAlRobot()"/>
                                 <button onclick="discard()">Borrar todo</button>
                                 <button onclick="saveCode()">Descargar código Arduino</button>
                                 <button onclick="save()">Descargar Bloques</button>
@@ -352,6 +352,17 @@
 
         <!-- Para la configuración -->
         <div id="blanket" style="display:none;"></div>
+        <div id="popupEnviar" style="display:none;">
+            <h3>Cargando Programa...</h3>
+            <p>El programa se está cargando. El proceso consta de:</p>
+            <ol>
+                <li>Grabar el programa en el disco.</li>
+                <li>Compilarlo</li>
+                <li>Subirlo al Robot</li>
+            </ol>
+            <p>El robot titileará una luz cuando esté cargando el programa.</p>
+            <p>Luego de eso comenzará el programa</p>
+        </div>
         <div id="popupConfig" style="display:none;">
             <h3>Configuración Multiplo N6</h3>
             <label for="placa">Tipo de robot ó placa</label>

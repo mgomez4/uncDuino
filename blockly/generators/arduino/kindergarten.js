@@ -33,7 +33,7 @@
    Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
    Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
    Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-   Blockly.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
+   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
 
    Blockly.Arduino.definitions_['define_forward'] = "void avanzar()\n"+
     "{\n"+

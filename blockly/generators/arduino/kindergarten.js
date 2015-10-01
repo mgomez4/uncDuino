@@ -159,7 +159,7 @@
  Blockly.Arduino.run_button_push = function(){
    var statements_if = Blockly.Arduino.statementToCode(this, 'IF');
    var code = "";
-
+   Blockly.Arduino.setups_['setup_button']= "pinMode(RUN_SW, INPUT_PULLUP);";
    code = 'if(!(digitalRead(RUN_SW))){\n' + statements_if + '\n}';
 
    return code;

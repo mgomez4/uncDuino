@@ -96,7 +96,7 @@ Blockly.Blocks['run_button_push'] = {
     //this.setHelpUrl('http://www.example.com/');
     this.setColour(160);
     this.appendStatementInput("IF")
-        .appendTitle(new Blockly.FieldImage("media/images/boton1.png", 256, 256));
+        .appendTitle(new Blockly.FieldImage("media/images/boton1.png", 30, 30));
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Si presionamos el botón');

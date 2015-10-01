@@ -29,7 +29,7 @@ Blockly.Blocks['n6_move_foward'] = {
   init: function() {
     this.setColour(250);
     this.appendDummyInput("")
-        .appendField(new Blockly.FieldImage("media/images/avanzar2.jpg", 64, 64))
+        .appendField(new Blockly.FieldImage("media/images/avanzar2.png", 64, 64))
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Avanza 20 cm :)');
@@ -80,9 +80,9 @@ Blockly.Blocks['object_ducker'] = {
     //this.setHelpUrl('http://www.example.com/');
     this.setColour(160);
     this.appendStatementInput("IF")
-        .appendTitle(new Blockly.FieldImage("media/images//object2.jpg", 256, 256));
+        .appendTitle(new Blockly.FieldImage("media/images//object2.png", 128, 128));
     this.appendStatementInput("ELSE")
-        .appendTitle(new Blockly.FieldImage("media/images/no_object1.jpg", 256, 256));
+        .appendTitle(new Blockly.FieldImage("media/images/no_object1.png", 128, 128));
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Decidimos');

@@ -29,7 +29,7 @@ Blockly.Blocks['n6_move_foward'] = {
   init: function() {
     this.setColour(250);
     this.appendDummyInput("")
-        .appendField(new Blockly.FieldImage("media/images/avanzar2.jpg", 64, 64))
+        .appendField(new Blockly.FieldImage("media/images/avanzar2.png", 64, 64))
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Avanza 20 cm :)');
@@ -80,9 +80,9 @@ Blockly.Blocks['object_ducker'] = {
     //this.setHelpUrl('http://www.example.com/');
     this.setColour(160);
     this.appendStatementInput("IF")
-        .appendTitle(new Blockly.FieldImage("media/images//object2.jpg", 256, 256));
+        .appendTitle(new Blockly.FieldImage("media/images//object2.png", 128, 128));
     this.appendStatementInput("ELSE")
-        .appendTitle(new Blockly.FieldImage("media/images/no_object1.jpg", 256, 256));
+        .appendTitle(new Blockly.FieldImage("media/images/no_object1.png", 128, 128));
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Decidimos');
@@ -96,9 +96,30 @@ Blockly.Blocks['run_button_push'] = {
     //this.setHelpUrl('http://www.example.com/');
     this.setColour(160);
     this.appendStatementInput("IF")
-        .appendTitle(new Blockly.FieldImage("media/images/object2.jpg", 256, 256));
+        .appendTitle(new Blockly.FieldImage("media/images/boton1.png", 30, 30));
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Si presionamos el botón');
+  }
+};
+
+Blockly.Blocks['repeatForever'] = {
+  /**
+   * Block for 'do while/until' loop.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
+    this.setColour(Blockly.Blocks.loops.HUE);
+    this.appendStatementInput('DO')
+        .appendTitle(new Blockly.FieldImage("media/images/repetir.png", 64, 64))
+        //.appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    // Assign 'this' to a variable for use in the tooltip closure below.
+    var thisBlock = this;
+    this.setTooltip(function() {
+      return "Repetir siempre";
+    });
   }
 };

@@ -33,7 +33,7 @@
    Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
    Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
    Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-   Blockly.Arduino.setups_["setup_motor"] = "motor1.setClockwise(false);\n "
+   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
 
    Blockly.Arduino.definitions_['define_forward'] = "void avanzar()\n"+
     "{\n"+
@@ -107,6 +107,8 @@
    var song = this.getFieldValue('SONG');
    var code = "";
 
+   Blockly.Arduino.setups_["setup_speaker"] = "pinMode(SPEAKER, OUTPUT);\n";
+
    Blockly.Arduino.definitions_['define_melody'] = Blockly.Arduino.Pitches;
 
    Blockly.Arduino.definitions_['define_melody_init_1'] = "int melody1[] = {NOTE_C4, NOTE_G3,NOTE_G3, NOTE_A3, NOTE_G3,0, NOTE_B3, NOTE_C4};\n" +
@@ -118,19 +120,19 @@
    if(song === "TAPA"){
      code = "for (int thisNote = 0; thisNote < 8; thisNote++) {\n" +
  	          "  int noteDuration = 1000/noteDurations1[thisNote];\n" +
-            "  tone(23, melody1[thisNote],noteDuration);\n" +
+            "  tone(SPEAKER, melody1[thisNote],noteDuration);\n" +
  		        "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
  		        "  delay(pauseBetweenNotes);\n" +
- 		        "  noTone(23);\n" + "}\n" +
+ 		        "  noTone(SPEAKER);\n" + "}\n" +
  		        "delay(5000);\n"
  		 }
     else if (song === "NAVIDAD"){
-      code = "for (int thisNote = 0; thisNote < 8; thisNote++) {\n" +
+      code = "for (int thisNote = 0; thisNote < 84; thisNote++) {\n" +
  	           "  int noteDuration = 1000/noteDurations2[thisNote];\n" +
-             "  tone(23, melody2[thisNote],noteDuration);\n" +
+             "  tone(SPEAKER, melody2[thisNote],noteDuration);\n" +
  		         "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
  		         "  delay(pauseBetweenNotes);\n" +
- 		         "  noTone(23);\n" + "}\n" +
+ 		         "  noTone(SPEAKER);\n" + "}\n" +
  		         "delay(5000);\n"
  		}
 
@@ -147,7 +149,7 @@
    var code = "";
    Blockly.Arduino.definitions_['define_ultrasonic_2'] = '#include <Ping.h>\n';
    // We define that ultrasonic sensor is connect to analogic pin S2 of N6 robotgroup
-   Blockly.Arduino.definitions_['var_ultrasonic_2'] = 'PingSensor ultrasonic(A2);\n';
+   Blockly.Arduino.definitions_['var_ultrasonic_2'] = 'PingSensor ultrasonic('+ Blockly.Arduino.configuracion.pinUS +');\n';
 
    if_code = "if(ultrasonic.measureCM() <= 18){\n "+statements_if+"}\n";
    else_code = "else{\n"+statements_else+"}";
@@ -159,8 +161,20 @@
  Blockly.Arduino.run_button_push = function(){
    var statements_if = Blockly.Arduino.statementToCode(this, 'IF');
    var code = "";
-
+   Blockly.Arduino.setups_['setup_button']= "pinMode(RUN_SW, INPUT_PULLUP);";
    code = 'if(!(digitalRead(RUN_SW))){\n' + statements_if + '\n}';
 
    return code;
  }
+
+
+Blockly.Arduino.repeatForever = function() {
+  // Do while/until loop.
+  var until = false;
+  var branch = Blockly.Arduino.statementToCode(this, 'DO');
+  if (Blockly.Arduino.INFINITE_LOOP_TRAP) {
+    branch = Blockly.Arduino.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'' + this.id + '\'') + branch;
+  }
+  return 'while (true) {\n' + branch + '}\n';
+}

@@ -18,17 +18,17 @@ Arduino = {
 };
 
 Arduino.EnviadorOS = function(){
-    nombrePrograma = '';
+    this.nombreArchivoIno = 'programa';
 }
 Arduino.EnviadorOS.prototype = {
     escribirProgramaADisco: function(){
         var fs = require('fs');
-        fs.mkdir(this.pathDirectorioPrograma(), 0777, function(err) {
+        fs.mkdir(this.pathDirIno(), 0777, function(err) {
             if (err && err.code != 'EEXIST') {
                 throw "No se pudo crear la carpeta del programa"
             } else {
-                fs.writeFileSync(this.pathPrograma(), Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace));
-                console.log("Archivo creado en" + this.pathPrograma());
+                fs.writeFileSync(this.pathArchivoIno(), Blockly.Arduino.workspaceToCode(Blockly.mainWorkspace));
+                console.log("Archivo creado en" + this.pathArchivoIno());
             }
         }.bind(this));
         
@@ -38,18 +38,19 @@ Arduino.EnviadorOS.prototype = {
         var exec = require('child_process').exec;
         console.log("Comando corriendo:" + this.comando());
         exec(this.comando(), function(error, stdout, stderr) {
-            console.log("Salida del comando:\n" + stdout + "\nSalida de error:\n" + stderr + "\nError completo:\n" + error);
+            console.log("Salida del comando:\n" + stdout + "\n");
+            if(error){console.log("Salida de error:\n" + stderr + "\nError completo:\n" + error + "\n")};
             popup('popupEnviar');
         });
     },
-    pathPrograma: function(){
+    pathArchivoIno: function(){
         var path = require('path');
-        return path.resolve(this.pathDirectorioPrograma(), this.nombrePrograma + '.ino' )
+        return path.resolve(this.pathDirIno(), this.nombreArchivoIno + '.ino' )
     },
     
-    pathDirectorioPrograma: function(){
+    pathDirIno: function(){ //Arduino requiere que para compilar la carpeta y el archivo se llamen igual
         var path = require('path');
-        return path.resolve(path.dirname(process.execPath), this.nombrePrograma );
+        return path.resolve(path.dirname(process.execPath), this.nombreArchivoIno );
     },
 
     addPropsFrom: function(otherObj){ //FEEEOOOOO Esto es por la falta de herencia. TODO.
@@ -70,7 +71,7 @@ Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
 
     },
     comando: function(){
-        return this.path + " -v --port " + Arduino.puerto + " --board multiplo:avr:" + Arduino.placaElegida.idHW + " --upload " + this.pathPrograma() + " ";
+        return '"' + this.path + '" -v --port ' + Arduino.puerto + ' --board multiplo:avr:' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
     },
 });
 
@@ -80,7 +81,6 @@ Arduino.enviadores = [Arduino.EnviadorWindows];
 Arduino.elegirEnviador();
 if (Arduino.enviador){
     var path = require('path');
-    Arduino.enviador.nombrePrograma = 'programa';
     Arduino.enviador.path = path.resolve(path.dirname(process.execPath),'arduino-1.6.5-r5','arduino_debug.exe');
 };
 Arduino.placas.duinobot23 = new Arduino.Placa("DuinoBotv2x_1284_HID");

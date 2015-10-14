@@ -27,13 +27,18 @@
 goog.require('Blockly.Arduino.Pitches');
 
 
- Blockly.Arduino.n6_move_foward = function() {
-   var cfgArd = Blockly.Arduino.configuracion;
+Blockly.Arduino.addMotorsSetUp = function(){
    Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
    Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
    Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-   Blockly.Arduino.setups_["setup_motor"] = cfgArd.placa.correccionDireccionMotores;
+   Blockly.Arduino.setups_["setup_motor"] = Blockly.Arduino.configuracion.placa.correccionDireccionMotores;
+  
+};
 
+ Blockly.Arduino.n6_move_foward = function() {
+   Blockly.Arduino.addMotorsSetUp();
+
+   var cfgArd = Blockly.Arduino.configuracion;
    Blockly.Arduino.definitions_['define_forward'] = "void avanzar()\n"+
     "{\n"+
     "  motor0.setSpeed("+cfgArd.robot.velocidad()+");//input a simulation value to set the speed\n"+
@@ -41,20 +46,16 @@ goog.require('Blockly.Arduino.Pitches');
     "  delay(" + cfgArd.robot.delayPara(cfgArd.distanciaPorPaso) + ");\n" +
     "  motor0.setSpeed(0);//input a simulation value to set the speed\n" +
     "  motor1.setSpeed(0);\n" +
-    "  delay(3000);\n" +
+    "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
     "}\n";
 
    return "avanzar();\n";
  };
 
  Blockly.Arduino.n6_turn_right = function() {
+   Blockly.Arduino.addMotorsSetUp();
+
    var cfgArd = Blockly.Arduino.configuracion;
-   Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
-   Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
-   Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-
-   Blockly.Arduino.setups_["setup_motor"] = cfgArd.placa.correccionDireccionMotores;
-
    Blockly.Arduino.definitions_['define_right'] = "void girar_derecha()\n"+
     "{\n"+
     "  motor0.setSpeed(0);//input a simulation value to set the speed\n"+
@@ -62,19 +63,16 @@ goog.require('Blockly.Arduino.Pitches');
     "  delay(910);\n" +
     "  motor0.setSpeed(0);//input a simulation value to set the speed\n" +
     "  motor1.setSpeed(0);\n" +
-    "  delay(3000);\n" +
+    "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
     "}\n";
 
    return "girar_derecha();\n";
  };
 
  Blockly.Arduino.n6_turn_left = function() {
-   var cfgArd = Blockly.Arduino.configuracion;
-   Blockly.Arduino.definitions_['define_DCmotor'] = "#include <DCMotor.h>\n"
-   Blockly.Arduino.definitions_['define_motor0'] = "DCMotor motor0(M0_EN, M0_D0, M0_D1);\n";
-   Blockly.Arduino.definitions_['define_motor1'] = "DCMotor motor1(M1_EN, M1_D0, M1_D1);\n";
-   Blockly.Arduino.setups_["setup_motor"] = cfgArd.placa.correccionDireccionMotores;
+   Blockly.Arduino.addMotorsSetUp();
 
+   var cfgArd = Blockly.Arduino.configuracion;
    Blockly.Arduino.definitions_['define_left'] = "void girar_izquierda()\n"+
       "{\n"+
       "  motor0.setSpeed("+cfgArd.robot.velocidad()+");//input a simulation value to set the speed\n"+
@@ -82,7 +80,7 @@ goog.require('Blockly.Arduino.Pitches');
       "  delay(910);\n" +
       "  motor0.setSpeed(0);//input a simulation value to set the speed\n" +
       "  motor1.setSpeed(0);\n" +
-      "  delay(3000);\n" +
+      "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
       "}\n";
 
    return "girar_izquierda();\n";
@@ -111,7 +109,7 @@ goog.require('Blockly.Arduino.Pitches');
  		        "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
  		        "  delay(pauseBetweenNotes);\n" +
  		        "  noTone(SPEAKER);\n" + "}\n" +
- 		        "delay(5000);\n"
+ 		        "delay(" + cfgArd.esperaEntreInstrucciones + ");\n"
  		 }
     else if (song === "NAVIDAD"){
       code = "for (int thisNote = 0; thisNote < 84; thisNote++) {\n" +
@@ -120,7 +118,7 @@ goog.require('Blockly.Arduino.Pitches');
  		         "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
  		         "  delay(pauseBetweenNotes);\n" +
  		         "  noTone(SPEAKER);\n" + "}\n" +
- 		         "delay(5000);\n"
+ 		         "delay(" + cfgArd.esperaEntreInstrucciones + ");\n"
  		}
 
    return code;
@@ -153,12 +151,10 @@ Blockly.Arduino.object_ducker = function() {
 };
 
  Blockly.Arduino.run_button_push = function(){
-   var statements_if = Blockly.Arduino.statementToCode(this, 'IF');
-   var code = "";
    Blockly.Arduino.setups_['setup_button']= "pinMode(RUN_SW, INPUT_PULLUP);";
-   code = 'if(!(digitalRead(RUN_SW))){\n' + statements_if + '\n}';
 
-   return code;
+   var statements_if = Blockly.Arduino.statementToCode(this, 'IF');  
+   return 'if(!(digitalRead(RUN_SW))){\n' + statements_if + '\n}';
  }
 
 

@@ -116,7 +116,7 @@ Arduino.placas.duinobot12.correccionDireccionMotores = "motor1.setClockwise(fals
 Arduino.placaElegida = Arduino.placas.duinobot23;
 Arduino.puerto = "COM1";
 Arduino.robots.multiploN6MAX = new Arduino.Robot(22,20,6);
-Arduino.robots.multiploN6 = Arduino.robots.multiploN6MAX;
+Arduino.robots.multiploN6 = Arduino.robots.multiploN6MAX; //Cambiar por new Robot con las medidas
 Arduino.robotElegido = Arduino.robots.multiploN6MAX;
 
 Blockly.Arduino.configuracion = {
@@ -126,7 +126,8 @@ Blockly.Arduino.configuracion = {
     pinUS: "A1",
     pinLI: "A2",
     pinLD: "A3",
-    distanciaPorPaso: 20, //en CM
+    distanciaPorPaso: 20, //en centímetros
+    esperaEntreInstrucciones: 2000, //en milisegundos
 };
 
 function guardarConfig(){

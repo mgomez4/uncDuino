@@ -304,6 +304,8 @@
 
             #popupConfig button { float: right;}
 
+            #popupConfig input { width: 50px;}
+
             </style>
     </head>
     <body onload="init()">
@@ -410,6 +412,17 @@
                 <option value="A4">S4</option>
                 <option value="A5">S5</option>
             </select>
+            <br/>
+            <label for="pinLI">Distancia de avance por paso</label>
+            <input type="text" id="distanciaPorPaso" value="20"></input>
+            <label>centímetros</label>
+            <br/>
+            <label for="pinLI">Potencia de motores</label>
+            <input type="text" id="potenciaMotores" value="50"></input>
+            <br/>
+            <label for="pinLI">Espera entre instrucciones</label>
+            <input type="text" id="esperaEntreInstrucciones" value="2000"></input>
+            <label>milisegundos</label>
             <br/>
             <label for="puerto">Puerto: </label>
             <input type="text" id="puerto" value="COM1"/>

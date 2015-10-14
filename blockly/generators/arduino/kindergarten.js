@@ -59,7 +59,7 @@ Blockly.Arduino.n6_turn_right = function() {
     "{\n"+
     "  motor0.setSpeed(0);//input a simulation value to set the speed\n"+
     "  motor1.setSpeed("+cfgArd.robot.velocidad()+");\n" +
-    "  delay(910);\n" +
+    "  delay(" + cfgArd.robot.delayGiro() + ");\n" +
     "  motor0.setSpeed(0);//input a simulation value to set the speed\n" +
     "  motor1.setSpeed(0);\n" +
     "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
@@ -76,7 +76,7 @@ Blockly.Arduino.n6_turn_left = function() {
     "{\n"+
     "  motor0.setSpeed("+cfgArd.robot.velocidad()+");//input a simulation value to set the speed\n"+
     "  motor1.setSpeed(0);\n" +
-    "  delay(910);\n" +
+    "  delay(" + cfgArd.robot.delayGiro() + ");\n" +
     "  motor0.setSpeed(0);//input a simulation value to set the speed\n" +
     "  motor1.setSpeed(0);\n" +
     "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +

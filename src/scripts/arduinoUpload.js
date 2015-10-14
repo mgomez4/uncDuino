@@ -86,10 +86,11 @@ Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
 Arduino.Robot.prototype = {
     distanciaParaGirar: function(){
         // suponiendo que gira pivoteando sobre una rueda quieta
-        return this.ancho - this.distanciaDelEjeAlFrente;
+        return Math.max(0,this.ancho - this.distanciaDelEjeAlFrente);
     },
     delayGiro: function(){
-        return Math.round(this.ancho * Math.PI / 4);
+        // suponiendo que gira pivoteando sobre una rueda quieta
+        return this.delayPara(this.ancho * Math.PI / 4);
     },
     velocidad: function(){
         return this.velocidadMotores;
@@ -97,7 +98,7 @@ Arduino.Robot.prototype = {
     delayPara: function(distancia){
         // Única prueba: velocidad 50 en ambos motores, pilas llenas, delay 1000ms, distancia: 29cm
         // suponiendo que la relación velocidad <-> distancia es lineal
-        return Math.round(distancia / 29 * this.velocidad() / 50 * 1000);
+        return Math.round(distancia / 29 *  50 / this.velocidad() * 1000);
     },
 };
 
@@ -130,12 +131,18 @@ Blockly.Arduino.configuracion = {
     esperaEntreInstrucciones: 2000, //en milisegundos
 };
 
-function guardarConfig(){
-    pines = ["pinIR", "pinUS", "pinLI", "pinLD"];
-    pines.forEach(function(pin){
-        Blockly.Arduino.configuracion[pin] = document.getElementById(pin).value;
+function mapFromDom(ids,to,transform){
+    if(!transform) transform = function(x){return x};
+    ids.forEach(function(id){
+        to[id] = transform(document.getElementById(id).value);
     });
+}
+
+function guardarConfig(){
+    mapFromDom(["pinIR", "pinUS", "pinLI", "pinLD"],Blockly.Arduino.configuracion);
+    mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones"],Blockly.Arduino.configuracion,parseInt);
     Blockly.Arduino.configuracion.placa = Arduino.placas[document.getElementById('placa').value];
+    Arduino.robotElegido.velocidadMotores = parseInt(document.getElementById("potenciaMotores").value);
     Arduino.puerto = document.getElementById('puerto').value;
 }
 

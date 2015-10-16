@@ -111,7 +111,7 @@ if (Arduino.enviador){
     Arduino.enviador.path = path.resolve(path.dirname(process.execPath),'arduino-1.6.5-r5','arduino_debug.exe');
 };
 Arduino.placas.duinobot23 = new Arduino.Placa("DuinoBotv2x_1284_HID");
-Arduino.placas.duinobot23.correccionDireccionMotores = "motor1.setClockwise(false);\nmotor0.setClockwise(false);\n ";
+Arduino.placas.duinobot23.correccionDireccionMotores = "motor1.setClockwise(false);\n  motor0.setClockwise(false);\n ";
 Arduino.placas.duinobot12 = new Arduino.Placa("DuinoBotv1x_HID");
 Arduino.placas.duinobot12.correccionDireccionMotores = "motor1.setClockwise(false);\n ";
 Arduino.placaElegida = Arduino.placas.duinobot23;

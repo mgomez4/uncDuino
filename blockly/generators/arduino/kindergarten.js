@@ -87,7 +87,7 @@ Blockly.Arduino.n6_turn_left = function() {
 
 
 Blockly.Arduino.n6_melody = function() {
-  //var dropdown_direction = this.getTitleValue('DIRECTION');
+  var cfgArd = Blockly.Arduino.configuracion
   var song = this.getFieldValue('SONG');
   var code = "";
 

@@ -300,11 +300,18 @@
                 width:400px;
                 border:5px solid #000;
                 z-index: 9002;
+                padding: 5px;
             }
 
             #popupConfig button { float: right;}
 
             #popupConfig input { width: 50px;}
+
+            #loader { 
+                display: block;
+                margin-left: auto;
+                margin-right: auto 
+             }
 
             </style>
     </head>
@@ -355,7 +362,8 @@
         <!-- Para la configuración -->
         <div id="blanket" style="display:none;"></div>
         <div id="popupEnviar" style="display:none;">
-            <h3>Cargando Programa...</h3>
+            <img id="loader" src="media/images/loader.gif"/>
+            <h3>Cargando Programa... </h3>
             <p>El programa se está cargando. El proceso consta de:</p>
             <ol>
                 <li>Grabar el programa en el disco.</li>

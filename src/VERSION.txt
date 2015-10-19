@@ -2,4 +2,9 @@
 # Este es un desarrollo de la Universidad Nacional de Córdoba
 # Colaboración: Fundación Sadosky, proyecto Program.AR
 
-Version 1.0.3
+Version 1.0.4
+
+# Nuevo en versión 1.0.4:
+#   Arreglado bloque "repetir"
+#   Arreglados bloques de melodías musicales
+#   Añadida animación a la pantalla de "compilando"

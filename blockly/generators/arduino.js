@@ -127,11 +127,14 @@ Blockly.Arduino.finish = function(code) {
   code = 'void loop() \n{\n' + code + '\n}';
 
   // Convert the definitions dictionary into a list.
+  var macros = [];
   var imports = [];
   var definitions = [];
   for (var name in Blockly.Arduino.definitions_) {
     var def = Blockly.Arduino.definitions_[name];
-    if (def.match(/^#include/)) {
+    if (def.match(/#define/)) {
+      macros.push(def);
+    } else if (def.match(/^#include/)) {
       imports.push(def);
     } else {
       definitions.push(def);
@@ -144,7 +147,7 @@ Blockly.Arduino.finish = function(code) {
     setups.push(Blockly.Arduino.setups_[name]);
   }
 
-  var allDefs = imports.join('\n') + '\n\n' + definitions.join('\n') + '\nvoid setup() \n{\n  '+setups.join('\n  ') + '\n}'+ '\n\n';
+  var allDefs = macros.join('\n') + '\n\n' + imports.join('\n') + '\n\n' + definitions.join('\n') + '\nvoid setup() \n{\n  '+setups.join('\n  ') + '\n}'+ '\n\n';
   return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
 };
 

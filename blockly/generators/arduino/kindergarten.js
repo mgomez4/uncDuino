@@ -24,7 +24,7 @@
  * @author mgomez4@famaf.unc.edu.ar (Marcos J. Gomez)
  */
 
-goog.require('Blockly.Arduino.Pitches');
+goog.require('Blockly.Arduino.Melodies');
 
 
 Blockly.Arduino.addMotorsSetUp = function(){
@@ -87,39 +87,30 @@ Blockly.Arduino.n6_turn_left = function() {
 
 
 Blockly.Arduino.n6_melody = function() {
-  //var dropdown_direction = this.getTitleValue('DIRECTION');
-  var song = this.getFieldValue('SONG');
-  var code = "";
+  var cfgArd = Blockly.Arduino.configuracion
+  var song = Blockly.Arduino.melodies.get(this.getFieldValue('SONG'));
 
   Blockly.Arduino.setups_["setup_speaker"] = "pinMode(SPEAKER, OUTPUT);\n";
 
   Blockly.Arduino.definitions_['define_melody'] = Blockly.Arduino.Pitches;
 
-  Blockly.Arduino.definitions_['define_melody_init_1'] = "int melody1[] = {NOTE_C4, NOTE_G3,NOTE_G3, NOTE_A3, NOTE_G3,0, NOTE_B3, NOTE_C4};\n" +
-    "int noteDurations1[] = {4, 8, 8, 4,4,4,4,4 };\n";
+  Blockly.Arduino.definitions_['define_melody_' + song.name() + '_init'] =  
+    "int melody" + song.name() + "[] = {" + song.noteNames().join(", ") + "};\n" +
+    "int durations" + song.name() + "[] = {" + song.noteDurations().join(", ") + "};\n";
 
-  Blockly.Arduino.definitions_['define_melody_init_2'] = "int melody2[] = {NOTE_G4,NOTE_C5,NOTE_C5,NOTE_D5,NOTE_C5,NOTE_B4,NOTE_A4,NOTE_A4, NOTE_A4,NOTE_D5,NOTE_D5,NOTE_E5,NOTE_D5,NOTE_C5,NOTE_B4,NOTE_G4, NOTE_G4,NOTE_E5,NOTE_E5,NOTE_F5,NOTE_E5,NOTE_D5,NOTE_C5,NOTE_A5,NOTE_G4,NOTE_G4,NOTE_A4,NOTE_D5,NOTE_B4,NOTE_C5, NOTE_G4,NOTE_C5,NOTE_C5,NOTE_D5,NOTE_C5,NOTE_B4,NOTE_A4,NOTE_A4, NOTE_A4,NOTE_D5,NOTE_D5,NOTE_E5,NOTE_D5,NOTE_C5,NOTE_B4,NOTE_G4, NOTE_G4,NOTE_E5,NOTE_E5,NOTE_F5,NOTE_E5,NOTE_D5,NOTE_C5,NOTE_A5,NOTE_G4,NOTE_G4,NOTE_A4,NOTE_D5,NOTE_B4,NOTE_C5, NOTE_G4,NOTE_C5,NOTE_C5,NOTE_C5,NOTE_B4,NOTE_B4,NOTE_C5,NOTE_B4,NOTE_A4,NOTE_G4, NOTE_D5,NOTE_E5,NOTE_D5,NOTE_D5,NOTE_C5,NOTE_C5,NOTE_G5,NOTE_G4,NOTE_G4,NOTE_G4,NOTE_A4,NOTE_D5,NOTE_B4,NOTE_C5};\n" +
-    "int noteDurations2[] = {4,4,8,8,8,8,4,4, 4,4,8,8,8,8,4,4, 4,4,8,8,8,8,4,4,8,8,4,4,4,2, 4,4,8,8,8,8,4,4, 4,4,8,8,8,8,4,4, 4,4,8,8,8,8,4,4,8,8,4,4,4,2, 4,4,4,4,2,4,4,4,4,2, 4,4,8,8,8,8,4,4,8,8,4,4,4,2};\n";
+  Blockly.Arduino.definitions_['define_melody_' + song.name() + '_code'] = 
+      "void melodia" + song.name() + "(){\n" +
+      "  for (int thisNote = 0; thisNote < " + song.length() + "; thisNote++) {\n" +
+      "    int noteDuration = 1000 / durations" + song.name() + "[thisNote];\n" +
+      "    tone(SPEAKER, melody" + song.name() + "[thisNote],noteDuration);\n" +
+      "    int pauseBetweenNotes = noteDuration * 1.30; \n" +
+      "    delay(pauseBetweenNotes);\n" +
+      "    noTone(SPEAKER);\n" + 
+      "  }\n" +
+      "  delay(" + cfgArd.esperaEntreInstrucciones + ");\n" +
+      "}\n";
 
-  if(song === "TAPA"){
-    code = "for (int thisNote = 0; thisNote < 8; thisNote++) {\n" +
-            "  int noteDuration = 1000/noteDurations1[thisNote];\n" +
-          "  tone(SPEAKER, melody1[thisNote],noteDuration);\n" +
-            "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
-            "  delay(pauseBetweenNotes);\n" +
-            "  noTone(SPEAKER);\n" + "}\n" +
-            "delay(" + cfgArd.esperaEntreInstrucciones + ");\n" 
-  }
-  else if (song === "NAVIDAD"){
-    code = "for (int thisNote = 0; thisNote < 84; thisNote++) {\n" +
-             "  int noteDuration = 1000/noteDurations2[thisNote];\n" +
-           "  tone(SPEAKER, melody2[thisNote],noteDuration);\n" +
-  	         "  int pauseBetweenNotes = noteDuration * 1.30; \n" +
-  	         "  delay(pauseBetweenNotes);\n" +
-  	         "  noTone(SPEAKER);\n" + "}\n" +
-  	         "delay(" + cfgArd.esperaEntreInstrucciones + ");\n"
-  }
-  return code;
+  return "melodia" + song.name() + "();\n";
 };
 
 Blockly.Arduino.ultrasonido = {};

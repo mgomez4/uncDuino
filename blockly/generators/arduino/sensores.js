@@ -62,9 +62,9 @@ Blockly.Arduino.both_motors_move = function() {
 
   Blockly.Arduino.setups_['define_motors'] =
       "pinMode(" + dropdownMotor1A + ", OUTPUT);\n" +
-      "pinMode(" + dropdownMotor1B + ", OUTPUT);\n" +
-      "pinMode(" + dropdownMotor2A + ", OUTPUT);\n" +
-      "pinMode(" + dropdownMotor2B + ", OUTPUT);\n";
+      "  pinMode(" + dropdownMotor1B + ", OUTPUT);\n" +
+      "  pinMode(" + dropdownMotor2A + ", OUTPUT);\n" +
+      "  pinMode(" + dropdownMotor2B + ", OUTPUT);\n";
   if(dropdownDirection==="forward")
   {
     Blockly.Arduino.definitions_['define_forward'] =

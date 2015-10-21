@@ -52,3 +52,9 @@ function popup(windowname) {
 	toggle('blanket');
 	toggle(windowname);		
 }
+
+function popupError(description){
+	document.getElementById("errorDesc").innerHTML = description;
+	console.log(description);
+	popup('popupError');
+}

@@ -1,5 +1,0 @@
-# UNC++Duino
-# Este es un desarrollo de la Universidad Nacional de Córdoba
-# Colaboración: Fundación Sadosky, proyecto Program.AR
-
-Version 1.0.3

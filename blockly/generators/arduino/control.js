@@ -92,3 +92,10 @@ Blockly.Arduino.controls_whileUntil = function() {
   }
   return 'while (' + argument0 + ') {\n' + branch + '}\n';
 }
+
+Blockly.Arduino.controls_repeat = function() {
+  // repeat certain amount of times.
+  return 'for( int i = 0; i < ' + this.getFieldValue('TIMES') + '; i++){\n'
+      + Blockly.Arduino.statementToCode(this, 'DO')
+      + '}\n';
+}

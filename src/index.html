@@ -10,11 +10,12 @@
             <script type="text/javascript" src="Blob.js"></script>
             <script type="text/javascript" src="spin.js"></script>
             <script type="text/javascript" src="FileSaver.min.js"></script>
+            <script type="text/javascript" src="version.js"></script>
             <script type="text/javascript" src="blockly_helper.js"></script>
             <script type="text/javascript" src="scripts/popup.js"></script>
             <script type="text/javascript" src="scripts/arduinoUpload.js"></script>
+            
             <script>
-
                     /**
                      * List of tab names.
                      * @private
@@ -175,7 +176,8 @@
                                    if(dest){
                                        load_by_url(dest);
                                    }
-                }
+                    document.getElementById("version").innerHTML = UNCDuino.Version;
+                };
             </script>
             <style>
                 html, body {
@@ -294,7 +296,7 @@
                width:100%;
             }
 
-            #popupConfig, #popupEnviar {
+            .popup {
                 position:absolute;
                 background:lightgray;
                 width:400px;
@@ -303,14 +305,16 @@
                 padding: 5px;
             }
 
-            #popupConfig button { float: right;}
+            .popup button { float: right;}
 
-            #popupConfig input { width: 50px;}
+            .popup input { width: 50px;}
 
-            #loader { 
+            .popup img { 
                 display: block;
                 margin-left: auto;
-                margin-right: auto 
+                margin-right: auto;
+                width: 50px;
+                height: 50px;
              }
 
             </style>
@@ -319,7 +323,7 @@
         <table height="100%" width="100%">
             <tr>
                 <td>
-                    <h1><a href="http://umm.famaf.unc.edu.ar/">UNC++duino</a> &gt; web-based visual programming editor for arduino</h1>
+                    <h1><a href="http://umm.famaf.unc.edu.ar/">UNC++duino</a> &gt; web-based visual programming editor for arduino <span id="version"></span></h1>
                 </td>
             </tr>
             <tr>
@@ -361,19 +365,20 @@
 
         <!-- Para la configuración -->
         <div id="blanket" style="display:none;"></div>
-        <div id="popupEnviar" style="display:none;">
+        <div id="popupEnviar" class="popup" style="display:none;">
             <img id="loader" src="media/images/loader.gif"/>
-            <h3>Cargando Programa... </h3>
-            <p>El programa se está cargando. El proceso consta de:</p>
-            <ol>
-                <li>Grabar el programa en el disco.</li>
-                <li>Compilarlo</li>
-                <li>Subirlo al Robot</li>
-            </ol>
-            <p>El robot titileará una luz cuando esté cargando el programa.</p>
-            <p>Luego de eso comenzará el programa</p>
+            <h3>Compilando y subiendo programa... </h3>
+            <p>El programa está compilando. Luego se cargará en el robot.</p>
+            <p>Cuando termine de titilar la luz en el robot, el programa estará cargado.</p>
         </div>
-        <div id="popupConfig" style="display:none;">
+        <div id="popupError" class="popup" style="display:none;">
+            <img src="media/images/warning.png"/>
+            <h3>Hubo un problema </h3>
+            <p>Descripción del problema:</p>
+            <p><div id="errorDesc"></div></p>
+            <button onclick="popup('popupError')">Cerrar</button>
+        </div>
+        <div id="popupConfig" class="popup" style="display:none;">
             <h3>Configuración Multiplo N6</h3>
             <label for="placa">Tipo de robot ó placa</label>
             <select id="placa">
@@ -465,7 +470,7 @@
                 <block type="text"></block>
             </category>
             <category name="Variables" custom="VARIABLE"></category>
-            <category name="Funciones" custom="PROCEDURE"></category>
+            <category name="Procedimientos y Funciones" custom="PROCEDURE"></category>
             <sep></sep>
             <category name="Entrada/Salida">
                 <block type="inout_highlow"></block>

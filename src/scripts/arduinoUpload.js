@@ -46,9 +46,11 @@ Arduino.EnviadorOS.prototype = {
         var exec = require('child_process').exec;
         console.log("Comando corriendo:" + this.comando());
         exec(this.comando(), function(error, stdout, stderr) {
-            console.log("Salida del comando:\n" + stdout + "\n");
-            if(error){console.log("Salida de error:\n" + stderr + "\nError completo:\n" + error + "\n")};
             popup('popupEnviar');
+            console.log("Salida del comando:\n" + stdout + "\n");
+            if(error){
+                popupError("Salida del comando:\n" + stdout + "\nSalida de error:\n" + stderr + "\nError completo:\n" + error + "\n");
+            };
         });
     },
     pathArchivoIno: function(){
@@ -148,7 +150,8 @@ function guardarConfig(){
 
 function enviarAlRobot(){
     if(!Arduino.enviador){
-        window.alert("BUUHH... Por algún problema no se puede enviar el código al robot. Vas a tener que copiar manualmente el código de la solapa \"Arduino\" al programa Arduino IDE")
+        popup('popupEnviar');
+        popupError("Parece que esta función no está habilitada para tu sistema operativo. Vas a tener que copiar manualmente el código de la solapa \"Arduino\" al programa Arduino IDE")
         return;
     };
     Arduino.enviador.escribirProgramaADisco();

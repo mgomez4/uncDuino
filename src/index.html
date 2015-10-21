@@ -10,11 +10,12 @@
             <script type="text/javascript" src="Blob.js"></script>
             <script type="text/javascript" src="spin.js"></script>
             <script type="text/javascript" src="FileSaver.min.js"></script>
+            <script type="text/javascript" src="version.js"></script>
             <script type="text/javascript" src="blockly_helper.js"></script>
             <script type="text/javascript" src="scripts/popup.js"></script>
             <script type="text/javascript" src="scripts/arduinoUpload.js"></script>
+            
             <script>
-
                     /**
                      * List of tab names.
                      * @private
@@ -175,7 +176,8 @@
                                    if(dest){
                                        load_by_url(dest);
                                    }
-                }
+                    document.getElementById("version").innerHTML = UNCDuino.Version;
+                };
             </script>
             <style>
                 html, body {
@@ -321,7 +323,7 @@
         <table height="100%" width="100%">
             <tr>
                 <td>
-                    <h1><a href="http://umm.famaf.unc.edu.ar/">UNC++duino</a> &gt; web-based visual programming editor for arduino</h1>
+                    <h1><a href="http://umm.famaf.unc.edu.ar/">UNC++duino</a> &gt; web-based visual programming editor for arduino <span id="version"></span></h1>
                 </td>
             </tr>
             <tr>

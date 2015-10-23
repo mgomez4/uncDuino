@@ -131,6 +131,7 @@ Blockly.Arduino.configuracion = {
     pinLD: "A3",
     distanciaPorPaso: 20, //en centímetros
     esperaEntreInstrucciones: 2000, //en milisegundos
+    correccionDistanciaDeteccion: 0, // para el ultrasonido
 };
 
 function mapFromDom(ids,to,transform){
@@ -142,7 +143,7 @@ function mapFromDom(ids,to,transform){
 
 function guardarConfig(){
     mapFromDom(["pinIR", "pinUS", "pinLI", "pinLD"],Blockly.Arduino.configuracion);
-    mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones"],Blockly.Arduino.configuracion,parseInt);
+    mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones", "correccionDistanciaDeteccion"],Blockly.Arduino.configuracion,parseInt);
     Blockly.Arduino.configuracion.placa = Arduino.placas[document.getElementById('placa').value];
     Arduino.robotElegido.velocidadMotores = parseInt(document.getElementById("potenciaMotores").value);
     Arduino.puerto = document.getElementById('puerto').value;

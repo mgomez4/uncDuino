@@ -303,6 +303,7 @@
                 border:5px solid #000;
                 z-index: 9002;
                 padding: 5px;
+                display: none;
             }
 
             .popup button { float: right;}
@@ -315,6 +316,12 @@
                 margin-right: auto;
                 width: 50px;
                 height: 50px;
+             }
+
+             #errorDesc {
+                height: 200px;
+                font-size: 75%;
+                overflow: auto;
              }
 
             </style>
@@ -365,20 +372,20 @@
 
         <!-- Para la configuración -->
         <div id="blanket" style="display:none;"></div>
-        <div id="popupEnviar" class="popup" style="display:none;">
+        <div id="popupEnviar" class="popup">
             <img id="loader" src="media/images/loader.gif"/>
             <h3>Compilando y subiendo programa... </h3>
             <p>El programa está compilando. Luego se cargará en el robot.</p>
             <p>Cuando termine de titilar la luz en el robot, el programa estará cargado.</p>
         </div>
-        <div id="popupError" class="popup" style="display:none;">
+        <div id="popupError" class="popup">
             <img src="media/images/warning.png"/>
             <h3>Hubo un problema </h3>
             <p>Descripción del problema:</p>
             <p><div id="errorDesc"></div></p>
             <button onclick="popup('popupError')">Cerrar</button>
         </div>
-        <div id="popupConfig" class="popup" style="display:none;">
+        <div id="popupConfig" class="popup">
             <h3>Configuración Multiplo N6</h3>
             <label for="placa">Tipo de robot ó placa</label>
             <select id="placa">

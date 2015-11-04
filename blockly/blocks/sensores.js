@@ -54,7 +54,7 @@ Blockly.Blocks['both_motors_move'] = {
         .appendField("Motor2")
         .appendField(new Blockly.FieldDropdown(profile.default.digital), "MOTOR2A")
         .appendField(new Blockly.FieldDropdown(profile.default.digital), "MOTOR2B")
-        .appendField(new Blockly.FieldDropdown([["Avanzar", "forward"], ["Derecha", "right"], ["Izquierda", "left"], ["Retroceder", "backward"]]), "DIRECTION");
+        .appendField(new Blockly.FieldDropdown([["Avanzar", "forward"], ["Derecha", "right"], ["Izquierda", "left"], ["Retroceder", "backward"], ["Frenar", "stop"]]), "DIRECTION");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setTooltip('Permite manejar los dos motores correspondientes a las ruedas de manera simultánea. Podemos definir su velocidad.');

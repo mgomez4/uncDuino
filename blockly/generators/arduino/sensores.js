@@ -117,5 +117,18 @@ Blockly.Arduino.both_motors_move = function() {
      code = "girar_izquierda();\n";
    }
 
+   else if (dropdownDirection==="stop")
+   {
+     Blockly.Arduino.definitions_['define_stop'] =
+     "void frenar()\n"+
+     "{\n"+
+     "  digitalWrite(" + dropdownMotor1A + ", LOW);\n" +
+     "  digitalWrite(" + dropdownMotor1B + ", LOW);\n" +
+     "  digitalWrite(" + dropdownMotor2A + ", LOW);\n" +
+     "  digitalWrite(" + dropdownMotor2B + ", LOW);\n" +
+     "}\n";
+     code = "frenar();\n";
+   }
+
    return code;
 };

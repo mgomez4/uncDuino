@@ -14,7 +14,7 @@
             <script type="text/javascript" src="blockly_helper.js"></script>
             <script type="text/javascript" src="scripts/popup.js"></script>
             <script type="text/javascript" src="scripts/arduinoUpload.js"></script>
-            
+
             <script>
                     /**
                      * List of tab names.
@@ -310,7 +310,7 @@
 
             .popup input { width: 50px;}
 
-            .popup img { 
+            .popup img {
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
@@ -348,7 +348,7 @@
                             <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</td>
                             <td class="tabmin">&nbsp;</td>
                             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
-                            <td class="tabmax"> 
+                            <td class="tabmax">
                                 <img src="media/images/enviar.png" onclick="popup('popupEnviar'); enviarAlRobot()"/>
                                 <button onclick="discard()">Borrar todo</button>
                                 <button onclick="saveCode()">Descargar código Arduino</button>
@@ -437,6 +437,10 @@
             <input type="text" id="distanciaPorPaso" value="20"></input>
             <label>centímetros</label>
             <br/>
+            <label for="anchoRobot">Ancho del Robot (influye en el giro)</label>
+            <input type="text" id="anchoRobot" value="22"></input>
+            <label>centímetros</label>
+            <br/>
             <label for="pinLI">Potencia de motores</label>
             <input type="text" id="potenciaMotores" value="50"></input>
             <br/>
@@ -449,7 +453,7 @@
             <br/>
             <label for="puerto">Puerto: </label>
             <input type="text" id="puerto" value="COM1"/>
-            <br/> 
+            <br/>
             <button onclick="guardarConfig(); popup('popupConfig')">Aceptar</button>
         </div>
 

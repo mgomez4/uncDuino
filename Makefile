@@ -1,11 +1,11 @@
-VERSION=0.0.1
+VERSION=1.0.6
 NOMBRE="UNC++Duino"
 PATHNWLINUX="/opt/nwjs-v0.12.3-linux-x64"
 PATHNWWINDOWS="/opt/nwjs-v0.12.3-win-ia32"
 
 compilar:
 	python buildUNCDuino.py
-	
+
 zipear:
 	mkdir -p compilados
 	rm -f compilados/${NOMBRE}.nw
@@ -21,7 +21,7 @@ empaquetarLinux: zipear
 #	cd compilados/linux && cat ${NWEBKIT} ../${NOMBRE}.nw > ${NOMBRE} # No lo puedo hacer andar
 	echo "./nw ${NOMBRE}.nw" > compilados/linux/${NOMBRE}.sh # Esto esta porque no puedo hacer andar lo de arriba
 	chmod +x compilados/linux/${NOMBRE}.sh
-	
+
 empaquetarWindows: zipear
 	rm -rf compilados/windows
 	mkdir -p compilados/windows
@@ -33,5 +33,5 @@ empaquetarWindows: zipear
 	cp -rf compilados/windows/* ~/Descargas/UNC++Duino-Windows # Para test de Alf
 
 full: compilar zipear empaquetarLinux
-	
+
 .PHONY: compilar

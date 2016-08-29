@@ -39,8 +39,8 @@ Arduino.EnviadorOS.prototype = {
                 console.log("Archivo creado en" + this.pathArchivoIno());
             }
         }.bind(this));
-        
-        
+
+
     },
     enviar: function(){
         var exec = require('child_process').exec;
@@ -57,7 +57,7 @@ Arduino.EnviadorOS.prototype = {
         var path = require('path');
         return path.resolve(this.pathDirIno(), this.nombreArchivoIno + '.ino' )
     },
-    
+
     pathDirIno: function(){ //Arduino requiere que para compilar la carpeta y el archivo se llamen igual
         var path = require('path');
         return path.resolve(path.dirname(process.execPath), this.nombreArchivoIno );
@@ -146,6 +146,7 @@ function guardarConfig(){
     mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones", "correccionDistanciaDeteccion"],Blockly.Arduino.configuracion,parseInt);
     Blockly.Arduino.configuracion.placa = Arduino.placas[document.getElementById('placa').value];
     Arduino.robotElegido.velocidadMotores = parseInt(document.getElementById("potenciaMotores").value);
+    Arduino.robotElegido.ancho = parseInt(document.getElementById("anchoRobot").value);
     Arduino.puerto = document.getElementById('puerto').value;
 }
 
@@ -158,6 +159,3 @@ function enviarAlRobot(){
     Arduino.enviador.escribirProgramaADisco();
     Arduino.enviador.enviar();
 }
-
-
-

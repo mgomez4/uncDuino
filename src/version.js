@@ -3,10 +3,12 @@
 // Colaboración: Fundación Sadosky, proyecto Program.AR
 
 UNCDuino = {};
-UNCDuino.Version = 'v1.0.5';
+UNCDuino.Version = 'v1.0.6';
 
-UNCDuino.Historia = 
+UNCDuino.Historia =
 '\
+	Nuevo en versión 1.0.6:\
+		 Añadida configuración de ancho de robot y corrección de distancia de sensado\
 	Nuevo en versión 1.0.5:\
 	   Añadido un mejor reporte de errores.\
 	   Ahora se distribuye con hidUploader v1.2, que corrige errores de carga en Win64.\

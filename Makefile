@@ -21,6 +21,7 @@ empaquetarLinux: zipear
 #	cd compilados/linux && cat ${NWEBKIT} ../${NOMBRE}.nw > ${NOMBRE} # No lo puedo hacer andar
 	echo "./nw ${NOMBRE}.nw" > compilados/linux/${NOMBRE}.sh # Esto esta porque no puedo hacer andar lo de arriba
 	chmod +x compilados/linux/${NOMBRE}.sh
+	cp -rf compilados/linux/* ~/Descargas/UNC++Duino-Linux # Para test de Alf
 
 empaquetarWindows: zipear
 	rm -rf compilados/windows
@@ -30,6 +31,7 @@ empaquetarWindows: zipear
 	cd compilados/windows && cat nw.exe ../${NOMBRE}.nw > ${NOMBRE}.exe
 	rm compilados/windows/nw.exe
 	# rm -rf ~/Descargas/UNCWindows
+
 	cp -rf compilados/windows/* ~/Descargas/UNC++Duino-Windows # Para test de Alf
 
 full: compilar zipear empaquetarLinux

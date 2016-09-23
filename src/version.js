@@ -3,10 +3,12 @@
 // Colaboración: Fundación Sadosky, proyecto Program.AR
 
 UNCDuino = {};
-UNCDuino.Version = 'v1.0.6';
+UNCDuino.Version = 'v1.0.7';
 
 UNCDuino.Historia =
 '\
+	Nuevo en versión 1.0.7:\
+     Agregado "Frenar" a los bloques de movimiento. Primera version publicada\
 	Nuevo en versión 1.0.6:\
 		 Añadida configuración de ancho de robot y corrección de distancia de sensado\
 	Nuevo en versión 1.0.5:\

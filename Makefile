@@ -34,6 +34,6 @@ empaquetarWindows: zipear
 
 	cp -rf compilados/windows/* ~/Descargas/UNC++Duino-Windows # Para test de Alf
 
-full: compilar zipear empaquetarLinux
+full: compilar zipear empaquetarWindows empaquetarLinux
 
 .PHONY: compilar

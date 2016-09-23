@@ -62,9 +62,9 @@ Blockly.Arduino.both_motors_move = function() {
 
   Blockly.Arduino.setups_['define_motors'] =
       "pinMode(" + dropdownMotor1A + ", OUTPUT);\n" +
-      "pinMode(" + dropdownMotor1B + ", OUTPUT);\n" +
-      "pinMode(" + dropdownMotor2A + ", OUTPUT);\n" +
-      "pinMode(" + dropdownMotor2B + ", OUTPUT);\n";
+      "  pinMode(" + dropdownMotor1B + ", OUTPUT);\n" +
+      "  pinMode(" + dropdownMotor2A + ", OUTPUT);\n" +
+      "  pinMode(" + dropdownMotor2B + ", OUTPUT);\n";
   if(dropdownDirection==="forward")
   {
     Blockly.Arduino.definitions_['define_forward'] =
@@ -115,6 +115,19 @@ Blockly.Arduino.both_motors_move = function() {
      "  digitalWrite(" + dropdownMotor2B + ", HIGH);\n" +
      "}\n";
      code = "girar_izquierda();\n";
+   }
+
+   else if (dropdownDirection==="stop")
+   {
+     Blockly.Arduino.definitions_['define_stop'] =
+     "void frenar()\n"+
+     "{\n"+
+     "  digitalWrite(" + dropdownMotor1A + ", LOW);\n" +
+     "  digitalWrite(" + dropdownMotor1B + ", LOW);\n" +
+     "  digitalWrite(" + dropdownMotor2A + ", LOW);\n" +
+     "  digitalWrite(" + dropdownMotor2B + ", LOW);\n" +
+     "}\n";
+     code = "frenar();\n";
    }
 
    return code;

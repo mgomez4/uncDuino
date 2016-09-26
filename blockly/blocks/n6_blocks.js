@@ -38,7 +38,7 @@ Blockly.Blocks['n6_ultrasonic_sensor'] = {
         .appendField(new Blockly.FieldDropdown(profile.default.digital), "PIN")
         .appendField("Unidad")
         .appendField(new Blockly.FieldDropdown([["cm", "cm"],  ["inch", "inch"]]), "UNIT");
-    this.setOutput(true, Number);
+    this.setOutput(true, "Number");
     this.setTooltip('Este bloque nos da información de la distancia a la cual se encuentra un objeto');
   }
 };
@@ -52,7 +52,7 @@ Blockly.Blocks['n6_infrared_sensor'] = {
       .appendField("Sensor Infrarrojo")
       .appendField("PIN#")
         .appendField(new Blockly.FieldDropdown(profile.default.digital), "PIN");
-    this.setOutput(true, Number);
+    this.setOutput(true, "Number");
     this.setTooltip('');
   }
 };
@@ -66,8 +66,8 @@ Blockly.Blocks['n6_both_motors_move'] = {
         .appendField("Motor")
         .appendField(new Blockly.FieldImage("http://www.seeedstudio.com/wiki/images/thumb/4/4d/Smotoshield2.jpg/400px-Smotoshield2.jpg", 64, 64))
         .appendField(new Blockly.FieldDropdown([["Frenar", "stop"], ["Avanzar", "forward"], ["Derecha", "right"], ["Izquierda", "left"], ["Retroceder", "backward"]]), "DIRECTION");
-    this.appendValueInput("SPEED", Number)
-        .setCheck(Number)
+    this.appendValueInput("SPEED", "Number")
+        .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Velocidad (rpm)");
     this.setPreviousStatement(true, null);
@@ -84,8 +84,8 @@ Blockly.Blocks['n6_one_motor_move'] = {
         .appendField("Motor")
         .appendField(new Blockly.FieldImage("http://www.seeedstudio.com/wiki/images/thumb/4/4d/Smotoshield2.jpg/400px-Smotoshield2.jpg", 64, 64))
         .appendField(new Blockly.FieldDropdown([["Motor0", "motor0"], ["Motor1", "motor1"]]), "MOTOR");
-    this.appendValueInput("SPEED", Number)
-        .setCheck(Number)
+    this.appendValueInput("SPEED", "Number")
+        .setCheck("Number")
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Velocidad (rpm)");
     this.setPreviousStatement(true, null);
@@ -102,7 +102,7 @@ Blockly.Blocks['n6_run_button'] = {
      this.appendDummyInput()
 		 .appendField("Boton Run")
 		 .appendField(new Blockly.FieldDropdown([["Encendido", "ON"], ["Apagado", "OFF"]]), "STAT");
-   	 this.setOutput(true, Boolean);
+   	 this.setOutput(true, "Boolean");
      this.setTooltip(Blockly.LANG_LOGIC_BOOLEAN_TOOLTIP_1);
      this.setTooltip('Boton Run encendido o apagado');
    }

@@ -20,6 +20,7 @@ Arduino = {
             var env = new CEnv();
             if(env.corresponde()){
                 this.enviador = env;
+                this.enviador.inicializar();
             }
         }.bind(this));
     },
@@ -39,8 +40,8 @@ Arduino.EnviadorOS.prototype = {
                 console.log("Archivo creado en" + this.pathArchivoIno());
             }
         }.bind(this));
-        
-        
+
+
     },
     enviar: function(){
         var exec = require('child_process').exec;
@@ -57,7 +58,7 @@ Arduino.EnviadorOS.prototype = {
         var path = require('path');
         return path.resolve(this.pathDirIno(), this.nombreArchivoIno + '.ino' )
     },
-    
+
     pathDirIno: function(){ //Arduino requiere que para compilar la carpeta y el archivo se llamen igual
         var path = require('path');
         return path.resolve(path.dirname(process.execPath), this.nombreArchivoIno );
@@ -68,20 +69,58 @@ Arduino.EnviadorOS.prototype = {
             this[attrname] = otherObj[attrname];
         }
         return this;
-    }
+    },
+
+    path: function(){
+      var path = require('path');
+      return path.resolve(path.dirname(process.execPath),this.carpetaArduino(),this.ejecutableArduino());
+    },
+
+    corresponde: function(){
+        if(typeof require === 'undefined') return false;
+        var os = require('os');
+        return os.platform() === this.platformName(); // && (process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432'));
+
+    },
 };
 
 Arduino.EnviadorWindows = function(){};
 
 Arduino.EnviadorWindows.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
-    corresponde: function(){
-        if(typeof require === 'undefined') return false;
-        var os = require('os');
-        return os.platform() === 'win32'; // && (process.arch === 'x64' || process.env.hasOwnProperty('PROCESSOR_ARCHITEW6432'));
-
+    platformName: function(){
+      return 'win32';
+    },
+    carpetaArduino(){
+      return 'arduino-1.6.5-r5';
+    },
+    ejecutableArduino(){
+      return 'arduino_debug.exe';
     },
     comando: function(){
-        return '"' + this.path + '" -v --port ' + Arduino.puerto + ' --board multiplo:avr:' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+      return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board multiplo:avr:' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+    },
+    inicializar: function(){
+      Arduino.puerto = "COM1";
+    },
+});
+
+Arduino.EnviadorLinux = function(){};
+
+Arduino.EnviadorLinux.prototype = (new Arduino.EnviadorOS()).addPropsFrom( {
+    platformName: function(){
+      return 'linux';
+    },
+    carpetaArduino(){
+      return 'arduino-1.6.11';
+    },
+    ejecutableArduino(){
+      return 'arduino';
+    },
+    comando: function(){
+        return '"' + this.path() + '" -v --port ' + Arduino.puerto + ' --board multiplo:avr:' + Arduino.placaElegida.idHW + ' --upload "' + this.pathArchivoIno() + '" ';
+    },
+    inicializar: function(){
+      Arduino.puerto = "ttyUSB0";
     },
 });
 
@@ -106,18 +145,13 @@ Arduino.Robot.prototype = {
 
 
 //Defaults
-Arduino.enviadores = [Arduino.EnviadorWindows];
+Arduino.enviadores = [Arduino.EnviadorWindows,Arduino.EnviadorLinux];
 Arduino.elegirEnviador();
-if (Arduino.enviador){
-    var path = require('path');
-    Arduino.enviador.path = path.resolve(path.dirname(process.execPath),'arduino-1.6.5-r5','arduino_debug.exe');
-};
 Arduino.placas.duinobot23 = new Arduino.Placa("DuinoBotv2x_1284_HID");
 Arduino.placas.duinobot23.correccionDireccionMotores = "motor1.setClockwise(false);\n  motor0.setClockwise(false);\n ";
 Arduino.placas.duinobot12 = new Arduino.Placa("DuinoBotv1x_HID");
 Arduino.placas.duinobot12.correccionDireccionMotores = "motor1.setClockwise(false);\n ";
 Arduino.placaElegida = Arduino.placas.duinobot23;
-Arduino.puerto = "COM1";
 Arduino.robots.multiploN6MAX = new Arduino.Robot(22,20,6);
 Arduino.robots.multiploN6 = Arduino.robots.multiploN6MAX; //Cambiar por new Robot con las medidas
 Arduino.robotElegido = Arduino.robots.multiploN6MAX;
@@ -131,6 +165,7 @@ Blockly.Arduino.configuracion = {
     pinLD: "A3",
     distanciaPorPaso: 20, //en centímetros
     esperaEntreInstrucciones: 2000, //en milisegundos
+    correccionDistanciaDeteccion: 0, // para el ultrasonido
 };
 
 function mapFromDom(ids,to,transform){
@@ -142,9 +177,10 @@ function mapFromDom(ids,to,transform){
 
 function guardarConfig(){
     mapFromDom(["pinIR", "pinUS", "pinLI", "pinLD"],Blockly.Arduino.configuracion);
-    mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones"],Blockly.Arduino.configuracion,parseInt);
+    mapFromDom(["distanciaPorPaso", "esperaEntreInstrucciones", "correccionDistanciaDeteccion"],Blockly.Arduino.configuracion,parseInt);
     Blockly.Arduino.configuracion.placa = Arduino.placas[document.getElementById('placa').value];
     Arduino.robotElegido.velocidadMotores = parseInt(document.getElementById("potenciaMotores").value);
+    Arduino.robotElegido.ancho = parseInt(document.getElementById("anchoRobot").value);
     Arduino.puerto = document.getElementById('puerto').value;
 }
 
@@ -157,6 +193,3 @@ function enviarAlRobot(){
     Arduino.enviador.escribirProgramaADisco();
     Arduino.enviador.enviar();
 }
-
-
-

@@ -14,7 +14,7 @@
             <script type="text/javascript" src="blockly_helper.js"></script>
             <script type="text/javascript" src="scripts/popup.js"></script>
             <script type="text/javascript" src="scripts/arduinoUpload.js"></script>
-            
+
             <script>
                     /**
                      * List of tab names.
@@ -303,18 +303,25 @@
                 border:5px solid #000;
                 z-index: 9002;
                 padding: 5px;
+                display: none;
             }
 
             .popup button { float: right;}
 
             .popup input { width: 50px;}
 
-            .popup img { 
+            .popup img {
                 display: block;
                 margin-left: auto;
                 margin-right: auto;
                 width: 50px;
                 height: 50px;
+             }
+
+             #errorDesc {
+                height: 200px;
+                font-size: 75%;
+                overflow: auto;
              }
 
             </style>
@@ -323,7 +330,7 @@
         <table height="100%" width="100%">
             <tr>
                 <td>
-                    <h1><a href="http://umm.famaf.unc.edu.ar/">UNC++duino</a> &gt; web-based visual programming editor for arduino <span id="version"></span></h1>
+                    <h1><a href="http://umm.famaf.unc.edu.ar/">UNCDuino</a> &gt; Programación Visual de Robots <span id="version"></span></h1>
                 </td>
             </tr>
             <tr>
@@ -341,7 +348,7 @@
                             <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</td>
                             <td class="tabmin">&nbsp;</td>
                             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
-                            <td class="tabmax"> 
+                            <td class="tabmax">
                                 <img src="media/images/enviar.png" onclick="popup('popupEnviar'); enviarAlRobot()"/>
                                 <button onclick="discard()">Borrar todo</button>
                                 <button onclick="saveCode()">Descargar código Arduino</button>
@@ -365,20 +372,20 @@
 
         <!-- Para la configuración -->
         <div id="blanket" style="display:none;"></div>
-        <div id="popupEnviar" class="popup" style="display:none;">
+        <div id="popupEnviar" class="popup">
             <img id="loader" src="media/images/loader.gif"/>
             <h3>Compilando y subiendo programa... </h3>
             <p>El programa está compilando. Luego se cargará en el robot.</p>
             <p>Cuando termine de titilar la luz en el robot, el programa estará cargado.</p>
         </div>
-        <div id="popupError" class="popup" style="display:none;">
+        <div id="popupError" class="popup">
             <img src="media/images/warning.png"/>
             <h3>Hubo un problema </h3>
             <p>Descripción del problema:</p>
             <p><div id="errorDesc"></div></p>
             <button onclick="popup('popupError')">Cerrar</button>
         </div>
-        <div id="popupConfig" class="popup" style="display:none;">
+        <div id="popupConfig" class="popup">
             <h3>Configuración Multiplo N6</h3>
             <label for="placa">Tipo de robot ó placa</label>
             <select id="placa">
@@ -430,12 +437,19 @@
             <input type="text" id="distanciaPorPaso" value="20"></input>
             <label>centímetros</label>
             <br/>
+            <label for="anchoRobot">Ancho del Robot (influye en el giro)</label>
+            <input type="text" id="anchoRobot" value="22"></input>
+            <label>centímetros</label>
+            <br/>
             <label for="pinLI">Potencia de motores</label>
             <input type="text" id="potenciaMotores" value="50"></input>
             <br/>
             <label for="pinLI">Espera entre instrucciones</label>
             <input type="text" id="esperaEntreInstrucciones" value="2000"></input>
             <label>milisegundos</label>
+            <br/>
+            <label for="correccionDistanciaDeteccion">Corrección distancia detección: </label>
+            <input type="text" id="correccionDistanciaDeteccion" value="0"/>
             <br/>
             <label for="puerto">Puerto: </label>
             <input type="text" id="puerto" value="COM1"/>
@@ -517,11 +531,6 @@
               <block type="n6_melody"></block>
               <block type="repeatForever"></block>
               <block type="object_ducker"></block>
-            </category>
-
-            <category name="tests">
-              <block type="ultrasonic_sensor"></block>
-              <block type="both_motors_move"></block>
             </category>
 
         </xml>

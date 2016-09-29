@@ -126,7 +126,7 @@ function distanciaDeteccion(){
   // Hay que sumarle la distancia de paso porque como sensa y avanza,
   // podría quedar más cerca de la pared que lo que queremos
   return Blockly.Arduino.ultrasonido.corregirCM(
-    cfgArd.robot.distanciaParaGirar() + cfgArd.distanciaPorPaso );
+    cfgArd.robot.distanciaParaGirar() + cfgArd.distanciaPorPaso ) + cfgArd.correccionDistanciaDeteccion;
 };
 
 Blockly.Arduino.object_ducker = function() {
